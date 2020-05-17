@@ -16,10 +16,8 @@ type URLStrategy struct {
 	t time.Time
 }
 
-// NewURLStrategy returns a new URLStrategy using the current date.
-func NewURLStrategy() *URLStrategy {
-	return &URLStrategy{time.Now()}
-}
+// DefaultURLStrategy is the default URL strategy.
+var DefaultURLStrategy = &URLStrategy{time.Now()}
 
 // getOffset computes the offset given the actual day and the expected day.
 func (s *URLStrategy) getOffset() time.Time {
@@ -44,8 +42,7 @@ func (s *URLStrategy) URL() (*url.URL, error) {
 }
 
 func main() {
-	strategy := NewURLStrategy()
-	result, err := strategy.URL()
+	result, err := DefaultURLStrategy.URL()
 	if err != nil {
 		log.Fatal(err)
 	}
